@@ -11,3 +11,15 @@ two:
   description: MyText
   image_url: MyString.png
   price: 9.99
+
+ruby:
+  title: Rubybook
+  description: My ruby book
+  image_url: mylink.png
+  price: 9.99
+
+ruby2:
+  title: Rubybook2
+  description: My ruby book
+  image_url: mylink.jpg
+  price: 9.99
