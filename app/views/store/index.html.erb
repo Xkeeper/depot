@@ -2,6 +2,11 @@
 <p id="notice"><%= notice %></p>
 <% end %>
 
+<% if @counter > 5 %>
+You viewed this page
+<%= pluralize(@counter, 'time') %>
+<% end %>
+
 <h1>Catalog</h1>
 
 <% @products.each do |product| %>
@@ -11,6 +16,7 @@
       <%= sanitize(product.description) %>
       <div class="price_line">
         <span class="price"><%= number_to_currency(product.price, separator: ',') %></span>
+        <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
       </div>
     </div>
 <% end %>
