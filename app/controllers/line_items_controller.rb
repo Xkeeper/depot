@@ -73,6 +73,44 @@ class LineItemsController < ApplicationController
     end
   end
 
+  def increase
+    @line_item = LineItem.find(params[:id])
+    @line_item.quantity +=1
+    @cart = current_cart
+
+    respond_to do |format|
+      if @line_item.save 
+        format.html { redirect_to :back }
+        format.js   { @current_item = @line_item, @cart}
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, notice: 'Cannot increase quantity' }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def decrease
+    @line_item = LineItem.find(params[:id])
+    @cart = current_cart
+    if @line_item.quantity > 1
+      @line_item.quantity -=1
+    else
+      @line_item.destroy
+    end
+
+    respond_to do |format|
+      if @line_item.save 
+        format.html { redirect_to :back }
+        format.js   { @current_item = @line_item, @cart}
+        format.json { head :no_content }
+      else
+        format.html { redirect_to :back, notice: 'Cannot decrease quantity' }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
@@ -80,7 +118,7 @@ class LineItemsController < ApplicationController
     @line_item.destroy
     
     respond_to do |format|
-      format.html { redirect_to cart_url(current_cart) }
+      format.html { redirect_to store_path }
       format.json { head :no_content }
     end
   end
