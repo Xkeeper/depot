@@ -21,6 +21,13 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'will_paginate'
+
+group :development, :test do
+	gem 'debugger'
+end
+
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

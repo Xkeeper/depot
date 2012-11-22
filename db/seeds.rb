@@ -6,6 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Product.delete_all
+PaymentType.delete_all
+
+PaymentType.create(name: 'Check')
+PaymentType.create(name: 'Credit Card')
+PaymentType.create(name: 'Purchase Order')
+
+
 
 Product.create( title: "Ruby programming",
                 description: %{ <p>ruby programming book </p>},

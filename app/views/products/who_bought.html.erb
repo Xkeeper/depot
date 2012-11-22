@@ -1,0 +1,21 @@
+<% @product.orders.sort_by(&:updated_at).each do |order| %>
+<p>
+	<h3> Who bought: "<%= @product.title %>" </h3>
+	<ul style="list-style: none">
+		<li> Order id: <%= order.id %> </li>
+		<li> Shipped to: <%= order.address %></li>
+		<li> Items: 
+		<ul>
+		<% order.line_items.each do |item| %>
+			<li><%= item.quantity %> &times; 
+				<%= item.product.title %> = 
+				<%= number_to_currency(item.total_price) %>
+			</li>
+		<% end %>
+		</ul>
+		</li>
+		<li> total: <%= number_to_currency(order.line_items.map(&:total_price).sum)%> </li>
+		<li> Pay type: <%= order.pay_type %>
+	</ul>
+</p>
+<% end %>

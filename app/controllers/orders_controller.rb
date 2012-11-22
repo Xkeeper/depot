@@ -2,7 +2,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.paginate page: params[:page], order: 'created_at desc', per_page: 10
 
     respond_to do |format|
       format.html # index.html.erb
@@ -48,7 +48,7 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(params[:order])
     @order.add_line_items_from_cart(current_cart)
-
+    
     respond_to do |format|
       if @order.save
         Cart.destroy(session[:cart_id])
